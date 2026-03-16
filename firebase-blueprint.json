@@ -1,0 +1,97 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "A digital product in the store",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Product title" },
+        "developer": { "type": "string", "description": "Developer name" },
+        "description": { "type": "string", "description": "Product description" },
+        "price": { "type": "string", "description": "Price as string (e.g. '$4.99' or 'Free')" },
+        "rating": { "type": "number", "description": "Average rating" },
+        "icon": { "type": "string", "description": "Icon URL" },
+        "category": { "type": "string", "description": "Category (Apps, Games, etc.)" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" },
+        "screenshots": { "type": "array", "items": { "type": "string" }, "description": "Screenshot URLs" },
+        "downloadUrl": { "type": "string", "description": "Download URL" },
+        "sellerId": { "type": "string", "description": "UID of the seller" },
+        "sellerName": { "type": "string", "description": "Name of the seller" }
+      },
+      "required": ["title", "developer", "description", "price", "category", "icon"]
+    },
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "displayName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "photoURL": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "walletBalance": { "type": "number" },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "purchasedProducts": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Wallet transaction or purchase",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["deposit", "purchase"] },
+        "amount": { "type": "number" },
+        "productId": { "type": "string" },
+        "productTitle": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "PaymentRequest": {
+      "title": "PaymentRequest",
+      "description": "Deposit request for manual approval",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "amount": { "type": "number" },
+        "paymentMethod": { "type": "string" },
+        "transactionId": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Message": {
+      "title": "Message",
+      "description": "Chat message",
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userPhoto": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Settings": {
+      "title": "Settings",
+      "description": "App settings like featured banner",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "youtubeUrl": { "type": "string" },
+        "buttonText": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "products": { "schema": "Product", "description": "Available products" },
+    "users": { "schema": "User", "description": "User profiles" },
+    "transactions": { "schema": "Transaction", "description": "User transactions" },
+    "payment_requests": { "schema": "PaymentRequest", "description": "Deposit requests" },
+    "messages": { "schema": "Message", "description": "Public chat messages" },
+    "settings": { "schema": "Settings", "description": "Global app settings" }
+  }
+}

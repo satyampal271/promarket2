@@ -1,0 +1,5 @@
+{
+  "name": "Global Audio Control",
+  "description": "A simple real-time audio toggle synchronized across all users.",
+  "requestFramePermissions": []
+}
